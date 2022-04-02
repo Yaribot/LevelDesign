@@ -16,7 +16,7 @@ public class Portal : MonoBehaviour
     [SerializeField]
     private float timeThresholdTeleport, thresholdWinTeleport;
 
-    public bool teleport, winTeleport;
+    public bool teleport, winTeleport, used, forward;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +25,8 @@ public class Portal : MonoBehaviour
         teleport = false;
         winTeleport = false;
         timeThresholdTeleport = 2f;
+        used = false;
+        forward = true;
     }
 
     // Update is called once per frame

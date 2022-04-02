@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour
             if(BPM._beatCountFull % 2 == 0)
             {
                 shoot = true;
+                BPM._soundBPM = true;
             }
         }
 

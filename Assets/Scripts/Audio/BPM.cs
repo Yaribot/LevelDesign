@@ -5,9 +5,10 @@ using UnityEngine;
 public class BPM : MonoBehaviour
 {
     private static BPM _bpmInstance;
+    private AudioSource _audioSource;
     public float _bpm;
     private float _beatInterval, _beatTimer, _beatIntervalD8, _beatTimerD8;
-    public static bool _beatFull, _beatD8;
+    public static bool _beatFull, _beatD8, _soundBPM;
     public static int _beatCountFull, _beatCountD8;
 
     //public float[] _tapTime = new float[4];
@@ -29,7 +30,8 @@ public class BPM : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        _audioSource = GetComponent<AudioSource>();
+        _soundBPM = false;
     }
 
     // Update is called once per frame
@@ -37,6 +39,12 @@ public class BPM : MonoBehaviour
     {
         BeatDetection();
         //Tapping();
+        if (_soundBPM)
+        {
+            _audioSource.Play();
+            Debug.Log("SHOOTING SOUND");
+            _soundBPM = false;
+        }
     }
 
     //private void Tapping()
@@ -79,7 +87,7 @@ public class BPM : MonoBehaviour
             _beatTimer -= _beatInterval;
             _beatFull = true;
             _beatCountFull++;
-            Debug.Log("Full");
+            //Debug.Log("Full");
         }
 
         // Divided by 8 Beat Count
@@ -92,7 +100,7 @@ public class BPM : MonoBehaviour
             _beatTimerD8 -= _beatIntervalD8;
             _beatD8 = true;
             _beatCountD8++;
-            Debug.Log("D8");
+            //Debug.Log("D8");
         }
     }
 }

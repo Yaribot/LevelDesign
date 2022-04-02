@@ -48,11 +48,22 @@ public class GameManager : MonoBehaviour
         {
             if (i < portalList.Count -1)
             {
-                if(portalList[i].teleport)
+                if(portalList[i].teleport && portalList[i].forward)
                 {                    
                     playerPos.position = portalList[i + 1].transform.position;
                     playerPos.rotation = portalList[i + 1].transform.rotation;
+                    portalList[i + 1].forward = false;
+                    portalList[i + 1].used = true;
                     
+                }
+            }
+            if(i > 0)
+            {
+                if (portalList[i].teleport && portalList[i].used && !portalList[i].forward)
+                {
+                    playerPos.position = portalList[i - 1].transform.position;
+                    playerPos.rotation = portalList[i - 1].transform.rotation;
+                    portalList[i].used = false;
                 }
             }
 

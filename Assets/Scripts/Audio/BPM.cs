@@ -42,7 +42,7 @@ public class BPM : MonoBehaviour
         if (_soundBPM)
         {
             _audioSource.Play();
-            Debug.Log("SHOOTING SOUND");
+            //Debug.Log("SHOOTING SOUND");
             _soundBPM = false;
         }
     }

@@ -23,10 +23,21 @@ public class PlayerController : MonoBehaviour
     public Transform CheckWallsPos;
     private bool wallDetection;
 
+    private Animator _animator;
+
+    private int hashRunParam;
+    private int hashJumpParam;
+
+    private string runParam = "Speed";
+    private string jumpParam = "Jump";
+
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _animator = transform.GetChild(0).transform.GetChild(0).transform.GetComponent<Animator>();
+        hashRunParam = Animator.StringToHash("Speed");
+        hashJumpParam = Animator.StringToHash("Jump");
     }
 
     private void FixedUpdate()
@@ -39,6 +50,8 @@ public class PlayerController : MonoBehaviour
     {
         Gatherinputs();
         Look();
+
+        
         
         isGrounded = Physics.CheckSphere(feetPos.position, checkRadius, groundMask);
         wallDetection = Physics.CheckSphere(CheckWallsPos.position, checkRadiusWall, groundMask);
@@ -46,12 +59,16 @@ public class PlayerController : MonoBehaviour
         {
             Jump();
         }
+        
     }
 
     private void Gatherinputs()
     {
         _inputs = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        _jumpInput = Input.GetKeyDown(KeyCode.Space);        
+        _jumpInput = Input.GetKeyDown(KeyCode.Space);
+        _animator.SetFloat(hashRunParam, Mathf.Abs(Input.GetAxisRaw("Horizontal")));
+        _animator.SetFloat(hashRunParam, Mathf.Abs(Input.GetAxisRaw("Vertical")));
+        _animator.SetBool(hashJumpParam, _jumpInput);
     }
 
     private void Move()
@@ -69,7 +86,7 @@ public class PlayerController : MonoBehaviour
             //else
             //{
                 _rb.MovePosition(transform.position + (transform.forward * _inputs.normalized.magnitude) * _speed * Time.deltaTime);
-            //}
+            //}            
         }
     }
 
@@ -86,8 +103,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        _rb.AddForce(transform.up * jumpHeight, ForceMode.Impulse);
-        
+        _rb.AddForce(transform.up * jumpHeight, ForceMode.Impulse);              
     }
 
     private void OnDrawGizmos()

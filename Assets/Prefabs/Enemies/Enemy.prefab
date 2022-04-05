@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1552395735}
   - component: {fileID: 1552395734}
   - component: {fileID: 1552395733}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Particle Death
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4873,7 +4873,7 @@ GameObject:
   - component: {fileID: 5214697576783270667}
   - component: {fileID: 3365814955208537929}
   - component: {fileID: 5340392155930737052}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 'Shooting Particle '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9740,7 +9740,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7820982888989475999}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9774,7 +9774,7 @@ GameObject:
   - component: {fileID: 7820982889322535346}
   - component: {fileID: 7820982889322535347}
   - component: {fileID: 4438588330197767021}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9836,7 +9836,7 @@ GameObject:
   - component: {fileID: 7820982890020410891}
   - component: {fileID: 7820982890020410889}
   - component: {fileID: 7820982890020410890}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9917,7 +9917,7 @@ GameObject:
   - component: {fileID: 7820982890413560289}
   - component: {fileID: 7820982890413560095}
   - component: {fileID: 7820982890413560288}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Nose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9996,7 +9996,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7820982890830899316}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Canon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

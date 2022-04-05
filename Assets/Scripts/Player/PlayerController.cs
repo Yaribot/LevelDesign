@@ -28,8 +28,8 @@ public class PlayerController : MonoBehaviour
     private int hashRunParam;
     private int hashJumpParam;
 
-    private string runParam = "Speed";
-    private string jumpParam = "Jump";
+    //private string runParam = "Speed";
+    //private string jumpParam = "Jump";
 
     // Start is called before the first frame update
     void Start()
@@ -66,8 +66,8 @@ public class PlayerController : MonoBehaviour
     {
         _inputs = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         _jumpInput = Input.GetKeyDown(KeyCode.Space);
-        _animator.SetFloat(hashRunParam, Mathf.Abs(Input.GetAxisRaw("Horizontal")));
-        _animator.SetFloat(hashRunParam, Mathf.Abs(Input.GetAxisRaw("Vertical")));
+        _animator.SetFloat(hashRunParam, Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")));
+        //_animator.SetFloat(hashRunParam, Mathf.Abs(Input.GetAxisRaw("Vertical")));
         _animator.SetBool(hashJumpParam, _jumpInput);
     }
 
@@ -116,5 +116,20 @@ public class PlayerController : MonoBehaviour
     private void OnParticleCollision(GameObject other)
     {
         Destroy(this.gameObject);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        foreach(ContactPoint hitPos in collision.contacts)
+        {
+            if(collision.gameObject.layer == 7)
+            {
+                Debug.Log("player hit pos is : " + hitPos.normal);
+                if(hitPos.normal.y < 1)
+                {
+                    _rb.AddForce(transform.up * 3f, ForceMode.Impulse);
+                }
+            }
+        }
     }
 }

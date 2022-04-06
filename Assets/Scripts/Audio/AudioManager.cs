@@ -24,6 +24,11 @@ public class AudioManager : MonoBehaviour
     public int _bankSize;
     private List<AudioSource> _soundClip;
 
+    private float audioClipLenght;
+    private float beatChangeThreshold = 10f;
+    private float nextBeat = 10f;
+    private bool crRunning;
+
     //public bool beat1, beat2, beat3;
 
     [SerializeField]
@@ -50,6 +55,8 @@ public class AudioManager : MonoBehaviour
     {
         //doSomething = false;
 
+        crRunning = false;
+
         _soundClip = new List<AudioSource>();
         for(int i = 0; i < _bankSize; i++)
         {
@@ -58,6 +65,9 @@ public class AudioManager : MonoBehaviour
             soundInstance.transform.parent = this.transform;
             _soundClip.Add(soundInstance.GetComponent<AudioSource>());
         }
+
+        audioClipLenght = audioSource.clip.length;
+        Debug.Log(audioClipLenght);
     }
 
     // Update is called once per frame
@@ -91,6 +101,28 @@ public class AudioManager : MonoBehaviour
         //    doSomething = false;
         //}
         //Debug.Log(doSomething);
+
+        //Debug.Log("Time : " + audioSource.time + " NextBeat : " + nextBeat);
+        //Debug.Log(crRunning);
+
+        if (audioSource.time > nextBeat)
+        {
+            nextBeat = audioSource.time + beatChangeThreshold;
+            StartCoroutine(ExecuteBeat1(10f));
+            //Debug.Log("Beat 1 !!!");
+        }
+        else
+        {
+            if (!crRunning)
+            {
+                beatChanger = changeBeat.beat3;
+            }
+        }
+        //}else if(audioSource.time == audioClipLenght % 4)
+        //{
+        //    beatChanger = changeBeat.beat1;
+        //    Debug.Log("Multiple de 10 !!");
+        //}
 
         switch (beatChanger)
         {
@@ -131,5 +163,18 @@ public class AudioManager : MonoBehaviour
         soundInstance.GetComponent<AudioSource>().volume = volume;
         soundInstance.GetComponent<AudioSource>().Play();
         _soundClip.Add(soundInstance.GetComponent<AudioSource>());
+    }
+
+    IEnumerator ExecuteBeat1(float time)
+    {
+        crRunning = true;
+        float counter = 0f;
+        while(counter <= time)
+        {
+            counter += audioSource.time;
+            beatChanger = changeBeat.beat1;
+            yield return null;
+        }
+            crRunning = false;
     }
 }

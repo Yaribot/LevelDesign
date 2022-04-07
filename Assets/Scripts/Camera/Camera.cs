@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Camera : MonoBehaviour
 {
-    [SerializeField]
-    private Transform target;
+    
+    public Transform target;
     public float smoothing = 5f;
     private Vector3 offset;
     // Start is called before the first frame update

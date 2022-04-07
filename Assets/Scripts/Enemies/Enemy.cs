@@ -91,7 +91,12 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                Destroy(collision.gameObject);
+                PlayerController playerCtrl = collision.transform.GetComponent<PlayerController>();
+                if(playerCtrl != null)
+                {
+                    playerCtrl.isEnable = false;
+                }
+                //Destroy(collision.gameObject);
             }
         }
     }

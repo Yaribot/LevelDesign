@@ -28,16 +28,24 @@ public class PlayerController : MonoBehaviour
     private int hashRunParam;
     private int hashJumpParam;
 
+    public bool isEnable;
+
+    private Collider col;
+    private GameObject gfx;
+
     //private string runParam = "Speed";
     //private string jumpParam = "Jump";
 
     // Start is called before the first frame update
     void Start()
     {
+        isEnable = true;
         _rb = GetComponent<Rigidbody>();
         _animator = transform.GetChild(0).transform.GetChild(0).transform.GetComponent<Animator>();
         hashRunParam = Animator.StringToHash("Speed");
         hashJumpParam = Animator.StringToHash("Jump");
+        col = GetComponent<Collider>();
+        gfx = transform.GetChild(0).transform.gameObject;
     }
 
     private void FixedUpdate()
@@ -48,7 +56,22 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Gatherinputs();
+
+        if (!isEnable)
+        {
+            _rb.constraints = RigidbodyConstraints.FreezePosition;
+            col.enabled = false;
+            gfx.SetActive(false);
+        }
+
+        if (isEnable)
+        {
+            _rb.constraints = RigidbodyConstraints.None;
+            _rb.constraints = RigidbodyConstraints.FreezeRotation;
+            Gatherinputs();
+            col.enabled = true;
+            gfx.SetActive(true);
+        }
         Look();
 
         
@@ -113,9 +136,10 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(CheckWallsPos.position, checkRadiusWall);
     }
 
-    private void OnParticleCollision(GameObject other)
+    private void OnParticleCollision(GameObject other) // Detection collision with particles
     {
-        Destroy(this.gameObject);
+        isEnable = false;
+        //Destroy(this.gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)

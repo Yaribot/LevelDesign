@@ -123,6 +123,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   CheckWallsPos: {fileID: 314342395157493960}
+  isEnable: 0
 --- !u!114 &314342394488875994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,6 +142,7 @@ MonoBehaviour:
     m_Bits: 8
   lerpDurationOpen: 1.5
   lerpDurationClose: 1
+  gm: {fileID: 0}
 --- !u!1 &314342394624921636
 GameObject:
   m_ObjectHideFlags: 0

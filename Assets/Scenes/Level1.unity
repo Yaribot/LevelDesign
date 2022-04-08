@@ -20517,6 +20517,7 @@ MonoBehaviour:
   cam: {fileID: 442173862}
   groupCheckpoints: {fileID: 1372986802}
   listCheckPoints: []
+  seeThroughMat: {fileID: 2100000, guid: a687e0a88e9aeb845866f2d6aec90713, type: 2}
 --- !u!4 &1002675782
 Transform:
   m_ObjectHideFlags: 0
@@ -25697,7 +25698,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh21064
+  m_Name: pb_Mesh39022
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -36028,7 +36029,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh21210
+  m_Name: pb_Mesh39150
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

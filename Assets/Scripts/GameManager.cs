@@ -48,6 +48,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private List<CheckPoint> listCheckPoints;
+
+    [Header("Get SeeThrough Materials")]
+    //[SerializeField]
+    //private Transform levelGroup;
+    public Material seeThroughMat;
     
     
     // Start is called before the first frame update
@@ -72,6 +77,8 @@ public class GameManager : MonoBehaviour
             Coins coinScript = coin.GetComponent<Coins>();
             coinScript.gm = this;
         }
+
+        //seeThroughMat = levelGroup.GetChild(0).GetComponent<Renderer>().material;
 
         GetCheckPointPos();
     }
@@ -135,6 +142,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawningPlayer()
     {
+        SeeThroughWalls playerSeeThrough;
         ParticleSystem particles1 = spawnPlayerPos.GetChild(0).transform.GetComponent<ParticleSystem>();
         ParticleSystem particles2 = spawnPlayerPos.GetChild(1).transform.GetComponent<ParticleSystem>();
         particles1.Play();
@@ -150,6 +158,8 @@ public class GameManager : MonoBehaviour
             timerSpawn = 0;
             isSpawningPlayer = false;
             playerScript = player.GetComponent<PlayerController>();
+            playerSeeThrough = player.GetComponent<SeeThroughWalls>();
+            playerSeeThrough.wallMaterial = seeThroughMat;
         }
     }
 

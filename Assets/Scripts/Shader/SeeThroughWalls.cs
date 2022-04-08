@@ -7,8 +7,8 @@ public class SeeThroughWalls : MonoBehaviour
     public static int posID = Shader.PropertyToID("_Position");
     public static int sizeID = Shader.PropertyToID("_Size");
 
-    [SerializeField]
-    private Material wallMaterial;
+
+    public Material wallMaterial;
     private UnityEngine.Camera cam;
     
 
@@ -24,11 +24,22 @@ public class SeeThroughWalls : MonoBehaviour
     public float lerpDurationClose = 1f;
 
     private bool once;
+    //private bool getMatOnce;
+
+    //[SerializeField]
+    //private GameManager gm;
+
+    //[Header("See Through Walls")]
+    //[SerializeField]
+    //private List<Material> listSeeThroughMat;
+
 
     private void Start()
     {
         cam = UnityEngine.Camera.main;
         once = false;
+        //getMatOnce = true;
+        //wallMaterial = gm.seeThroughMat;
     }
 
     // Update is called once per frame
@@ -36,11 +47,40 @@ public class SeeThroughWalls : MonoBehaviour
     {
         Vector3 dir = cam.transform.position - transform.position;
         Ray ray = new Ray(transform.position, dir.normalized);
+        //RaycastHit hit;
 
         if (Physics.Raycast(ray, 3000, mask))
         {
-            once = false;
-            wallMaterial.SetFloat(sizeID, Lerp(startValue, endValue, lerpDurationOpen));
+            //Debug.Log(hit.transform.gameObject.name);
+            //wallMaterial = hit.transform.GetComponent<Renderer>().material;
+            //if(wallMaterial != null)
+            //{
+            //    for(int i = 0; i < listSeeThroughMat.Count; i++)
+            //    {
+            //        if(listSeeThroughMat[i] = wallMaterial)
+            //        {
+                        once = false;
+                        wallMaterial.SetFloat(sizeID, Lerp(startValue, endValue, lerpDurationOpen));
+                        //getMatOnce = false;
+                //    }
+                //}
+
+
+                //if (listSeeThroughMat.Contains(wallMaterial))
+                //{
+                    
+                //}
+                //foreach(Material mat in listSeeThroughMat)
+                //{
+                //    listSeeThroughMat.Contains(wallMaterial)
+                //    if(mat == wallMaterial)
+                //    {
+                        
+                //    }
+                //}
+
+                
+            //}
 
         }
         else

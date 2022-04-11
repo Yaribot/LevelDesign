@@ -22,9 +22,9 @@ public class GameManager : MonoBehaviour
     public GameObject enemyPref;
     public GameObject coinPref;
 
-    [SerializeField]
-    private AudioSource audioSource;
-    private AudioClip audioClip;
+    //[SerializeField]
+    //private AudioSource audioSource;
+    //private AudioClip audioClip;
 
     [SerializeField]
     private AudioManager audioManager;
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
     {
         isSpawningPlayer = true;
         moneyCount = 0;
-        audioClip = audioSource.clip;
+        //audioClip = audioSource.clip;
         Debug.Log(portalList.Count);
         int nbEnemy = enemyGroup.childCount;
         for(int i = 0; i < nbEnemy; i++)
@@ -181,7 +181,13 @@ public class GameManager : MonoBehaviour
             //int i = listCheckPoints.Count; i > 0; i--
             for (int i = 0; i < listCheckPoints.Count; i++)
             {
-                if(i >= listCheckPoints.Count-1)
+                if (listCheckPoints[i].isActive)
+                {
+                    nbActive = i;
+                    //Debug.Log(nbActive);
+                }
+
+                if (i >= listCheckPoints.Count-1)
                 {
                     ParticleSystem particle = listCheckPoints[nbActive].transform.GetChild(0).GetComponent<ParticleSystem>();
                     particle.Play();
@@ -189,14 +195,14 @@ public class GameManager : MonoBehaviour
                     playerPos.position = listCheckPoints[nbActive].transform.position;
                     playerPos.rotation = listCheckPoints[nbActive].transform.rotation;                  
                 }
-                else
-                {                    
-                    if (listCheckPoints[i].isActive)
-                    {
-                        nbActive++;
-                        //Debug.Log(nbActive);
-                    }
-                }
+                //else
+                //{                    
+                //    if (listCheckPoints[i].isActive)
+                //    {
+                //        nbActive = ++;
+                //        //Debug.Log(nbActive);
+                //    }
+                //}
             }
             
         }

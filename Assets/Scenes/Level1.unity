@@ -8237,7 +8237,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.16470589, g: 0.64705884, b: 0.9137255, a: 0}
+  m_BackGroundColor: {r: 0.99215686, g: 0.47058824, b: 0.50980395, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -20510,7 +20510,6 @@ MonoBehaviour:
   coinsGroup: {fileID: 220959875}
   enemyPref: {fileID: 7820982889322535348, guid: 94a86ecd5c4d96147bc998ae476d0f7d, type: 3}
   coinPref: {fileID: 5943875551383371595, guid: 8cd32b184b4cfe147a20d73f125ad879, type: 3}
-  audioSource: {fileID: 1365362455}
   audioManager: {fileID: 421731332}
   MusicFrequency: 0
   moneyCount: 0

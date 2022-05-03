@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour
     private Transform spawnPlayerPos;
     [SerializeField]
     private GameObject playerPref;
+    [SerializeField]
+    private TextMeshProUGUI coinText, deathText;
 
     public List<Portal> portalList;
     public List<Transform> enemyPosList;
@@ -32,6 +35,7 @@ public class GameManager : MonoBehaviour
     public int MusicFrequency;
 
     public int moneyCount;
+    public int deathCount;
 
     private float timerSpawn;
     private float ThresholdtimerSpawn = 1.3f;
@@ -53,13 +57,17 @@ public class GameManager : MonoBehaviour
     //[SerializeField]
     //private Transform levelGroup;
     public Material seeThroughMat;
-    
+
+    [Header("Scriptable Objects")]
+    public IntScriptable totalDeath;
+    public IntScriptable totalCoin;
     
     // Start is called before the first frame update
     void Start()
     {
         isSpawningPlayer = true;
         moneyCount = 0;
+        deathCount = 0;
         //audioClip = audioSource.clip;
         Debug.Log(portalList.Count);
         int nbEnemy = enemyGroup.childCount;
@@ -67,7 +75,9 @@ public class GameManager : MonoBehaviour
         {
             enemyPosList.Add(enemyGroup.GetChild(i).transform);
             GameObject enemy = Instantiate(enemyPref, enemyPosList[i].position, enemyPosList[i].rotation);
-            enemy.GetComponent<Enemy>().aM = audioManager;
+            Enemy enemyScript = enemy.GetComponent<Enemy>();
+            enemyScript.aM = audioManager;
+            enemyScript.gM = this;
         }
         int nbCoins = coinsGroup.childCount;
         for(int i = 0; i < nbCoins; i++)
@@ -102,6 +112,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        UpdateUi();
         //MusicFrequency = audioClip.frequency;
         //Debug.Log(MusicFrequency);
         //Debug.Log(moneyCount);
@@ -160,6 +171,7 @@ public class GameManager : MonoBehaviour
             playerScript = player.GetComponent<PlayerController>();
             playerSeeThrough = player.GetComponent<SeeThroughWalls>();
             playerSeeThrough.wallMaterial = seeThroughMat;
+            playerScript.gm = this;
         }
     }
 
@@ -216,5 +228,18 @@ public class GameManager : MonoBehaviour
         }
 
         
+    }
+
+    private void UpdateUi()
+    {
+        if(coinText.text != moneyCount.ToString())
+        {
+            coinText.text = moneyCount.ToString();
+        }
+
+        if(deathText.text != deathCount.ToString())
+        {
+            deathText.text = deathCount.ToString();
+        }
     }
 }

@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
     private Collider col;
     private GameObject gfx;
 
+    public GameManager gm;
+
     //private string runParam = "Speed";
     //private string jumpParam = "Jump";
 
@@ -140,6 +142,8 @@ public class PlayerController : MonoBehaviour
     {
         isEnable = false;
         //Destroy(this.gameObject);
+        gm.deathCount++;
+        gm.totalDeath.Value++;
     }
 
     private void OnCollisionEnter(Collision collision)

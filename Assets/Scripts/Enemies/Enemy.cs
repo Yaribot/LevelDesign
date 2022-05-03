@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     private Transform gfxTransform;
 
     public AudioManager aM;
+    public GameManager gM;
 
     private LayerMask playerMask;
     private float animDuration;
@@ -87,7 +88,7 @@ public class Enemy : MonoBehaviour
                 Destroy(this.gameObject, 3f);
                 emissionModule.enabled = false;
                 col.enabled = false;
-                transform.GetChild(0).gameObject.SetActive(false);
+                transform.GetChild(0).gameObject.SetActive(false);                
             }
             else
             {
@@ -95,6 +96,8 @@ public class Enemy : MonoBehaviour
                 if(playerCtrl != null)
                 {
                     playerCtrl.isEnable = false;
+                    gM.deathCount++;
+                    gM.totalDeath.Value++;
                 }
                 //Destroy(collision.gameObject);
             }

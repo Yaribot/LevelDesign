@@ -9,6 +9,7 @@ public class Coins : MonoBehaviour
     private Transform gfxTransform;
     public float animDuration;
     public Ease animEase;
+    public IntScriptable coinsSum;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,7 @@ public class Coins : MonoBehaviour
         {
             //Debug.Log("Destroy !!");
             gm.moneyCount++;
+            gm.totalCoin.Value++;
             Destroy(this.gameObject);
         }
         else

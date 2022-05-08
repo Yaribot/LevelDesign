@@ -18,6 +18,9 @@ public class Portal : MonoBehaviour
 
     public bool teleport, winTeleport, used, forward;
 
+    [SerializeField]
+    private LevelLoader levelLoader;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +49,7 @@ public class Portal : MonoBehaviour
     {
         activeTeleport = Physics.CheckSphere(transform.position, teleportRadius, playerMask);
         if (activeTeleport)
-        {
+        {          
             timeToTeleport += Time.deltaTime;
             if (timeToTeleport >= timeThresholdTeleport)
             {
@@ -66,6 +69,7 @@ public class Portal : MonoBehaviour
         if (activeWinTeleport)
         {
             timeToTeleport += Time.deltaTime;
+            levelLoader.LoadNextLevel();
             if (timeToTeleport >= thresholdWinTeleport)
             {
                 winTeleport = true;

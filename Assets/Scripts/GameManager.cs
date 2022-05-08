@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameManager : MonoBehaviour
@@ -14,6 +15,8 @@ public class GameManager : MonoBehaviour
     private GameObject playerPref;
     [SerializeField]
     private TextMeshProUGUI coinText, deathText;
+    [SerializeField]
+    private GameObject UiPauseMenu;
 
     public List<Portal> portalList;
     public List<Transform> enemyPosList;
@@ -172,6 +175,7 @@ public class GameManager : MonoBehaviour
             playerSeeThrough = player.GetComponent<SeeThroughWalls>();
             playerSeeThrough.wallMaterial = seeThroughMat;
             playerScript.gm = this;
+            playerScript.UiPauseMenu = UiPauseMenu;
         }
     }
 
@@ -241,5 +245,16 @@ public class GameManager : MonoBehaviour
         {
             deathText.text = deathCount.ToString();
         }
+    }
+
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
+    }
+
+    public void Quit()
+    {
+        Debug.Log("Quit the game !");
+        Application.Quit();
     }
 }

@@ -1,4 +1,4 @@
-    using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask groundMask;
     private bool _jumpInput;
+    private bool _pauseInput;
 
     public Transform CheckWallsPos;
     private bool wallDetection;
@@ -28,12 +29,14 @@ public class PlayerController : MonoBehaviour
     private int hashRunParam;
     private int hashJumpParam;
 
-    public bool isEnable;
+    public bool isEnable, isPaused;
 
     private Collider col;
     private GameObject gfx;
 
     public GameManager gm;
+
+    public GameObject UiPauseMenu;
 
     //private string runParam = "Speed";
     //private string jumpParam = "Jump";
@@ -84,6 +87,22 @@ public class PlayerController : MonoBehaviour
         {
             Jump();
         }
+
+        if (_pauseInput)
+        {
+            Pause();
+        }
+
+        if (isPaused)
+        {
+            UiPauseMenu.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            UiPauseMenu.SetActive(false);
+            Time.timeScale = 1;
+        }
         
     }
 
@@ -91,6 +110,7 @@ public class PlayerController : MonoBehaviour
     {
         _inputs = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         _jumpInput = Input.GetKeyDown(KeyCode.Space);
+        _pauseInput = Input.GetKeyDown(KeyCode.Escape);
         _animator.SetFloat(hashRunParam, Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")));
         //_animator.SetFloat(hashRunParam, Mathf.Abs(Input.GetAxisRaw("Vertical")));
         _animator.SetBool(hashJumpParam, _jumpInput);
@@ -129,6 +149,11 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         _rb.AddForce(transform.up * jumpHeight, ForceMode.Impulse);              
+    }
+
+    private void Pause()
+    {
+        isPaused = !isPaused;       
     }
 
     private void OnDrawGizmos()

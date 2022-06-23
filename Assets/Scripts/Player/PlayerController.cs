@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     private Vector3 _inputs;
     [SerializeField]
-    private float _speed = 5f, _trunSpeed = 360f;
+    private float _speed = 5f, _turnSpeed = 360f;
 
     private bool isGrounded = false;
     [SerializeField]
@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
         hashJumpParam = Animator.StringToHash("Jump");
         col = GetComponent<Collider>();
         gfx = transform.GetChild(0).transform.gameObject;
+        _turnSpeed = 1000f;
     }
 
     private void FixedUpdate()
@@ -130,7 +131,8 @@ public class PlayerController : MonoBehaviour
             //}
             //else
             //{
-                _rb.MovePosition(transform.position + (transform.forward * _inputs.normalized.magnitude) * _speed * Time.deltaTime);
+                //_rb.MovePosition(transform.position + _inputs * _speed * Time.deltaTime);
+               _rb.MovePosition(transform.position + (transform.forward * _inputs.normalized.magnitude) * _speed * Time.deltaTime);
             //}            
         }
     }
@@ -142,7 +144,7 @@ public class PlayerController : MonoBehaviour
 
                                                      // _inputs <-- to get the control back iso movement
             Quaternion rot = Quaternion.LookRotation(_inputs.ToIso(), Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, _trunSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, _turnSpeed * Time.deltaTime);
         }
     }
 

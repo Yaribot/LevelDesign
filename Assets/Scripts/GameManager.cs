@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI coinText, deathText;
     [SerializeField]
     private GameObject UiPauseMenu;
+    public NavMeshAgent pathFirefly;
+    public Transform agentGoal;
 
     public List<Portal> portalList;
     public List<Transform> enemyPosList;
@@ -44,6 +47,7 @@ public class GameManager : MonoBehaviour
     private float ThresholdtimerSpawn = 1.3f;
 
     private bool isSpawningPlayer;
+    public bool once;
 
     [Header("Camera")]
     [SerializeField]
@@ -256,5 +260,14 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Quit the game !");
         Application.Quit();
+    }
+
+    public void AgentGoToGoal(NavMeshAgent agent, Transform goal)
+    {
+
+        agent.transform.position = playerPos.position;
+        agent.destination = goal.position;
+
+        //if(agent.transform.position == )
     }
 }

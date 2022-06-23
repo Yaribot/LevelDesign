@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundMask;
     private bool _jumpInput;
     private bool _pauseInput;
+    private bool _agentInput;
 
     public Transform CheckWallsPos;
     private bool wallDetection;
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
     private int hashRunParam;
     private int hashJumpParam;
 
-    public bool isEnable, isPaused;
+    public bool isEnable, isPaused, agentGoToGoal;
 
     private Collider col;
     private GameObject gfx;
@@ -52,6 +53,7 @@ public class PlayerController : MonoBehaviour
         col = GetComponent<Collider>();
         gfx = transform.GetChild(0).transform.gameObject;
         _turnSpeed = 1000f;
+        agentGoToGoal = false;
     }
 
     private void FixedUpdate()
@@ -104,6 +106,21 @@ public class PlayerController : MonoBehaviour
             UiPauseMenu.SetActive(false);
             Time.timeScale = 1;
         }
+
+        if (_agentInput)
+        {
+            gm.pathFirefly.transform.position = transform.position;
+            gm.AgentGoToGoal(gm.pathFirefly, gm.agentGoal);
+            //agentGoToGoal = true;
+        }
+        //if (agentGoToGoal)
+        //{
+        //    gm.AgentGoToGoal(gm.pathFirefly, gm.agentGoal);
+        //    if(gm.pathFirefly.transform.position == gm.agentGoal.position)
+        //    {
+        //        agentGoToGoal = false;
+        //    }
+        //}
         
     }
 
@@ -112,6 +129,7 @@ public class PlayerController : MonoBehaviour
         _inputs = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         _jumpInput = Input.GetKeyDown(KeyCode.Space);
         _pauseInput = Input.GetKeyDown(KeyCode.Escape);
+        _agentInput = Input.GetKeyDown(KeyCode.F);
         _animator.SetFloat(hashRunParam, Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")));
         //_animator.SetFloat(hashRunParam, Mathf.Abs(Input.GetAxisRaw("Vertical")));
         _animator.SetBool(hashJumpParam, _jumpInput);

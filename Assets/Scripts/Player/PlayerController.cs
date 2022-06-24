@@ -109,18 +109,11 @@ public class PlayerController : MonoBehaviour
 
         if (_agentInput)
         {
-            gm.pathFirefly.transform.position = transform.position;
-            gm.AgentGoToGoal(gm.pathFirefly, gm.agentGoal);
-            //agentGoToGoal = true;
+            gm.once = true;
+            gm.activatePathAgent = !gm.activatePathAgent;
         }
-        //if (agentGoToGoal)
-        //{
-        //    gm.AgentGoToGoal(gm.pathFirefly, gm.agentGoal);
-        //    if(gm.pathFirefly.transform.position == gm.agentGoal.position)
-        //    {
-        //        agentGoToGoal = false;
-        //    }
-        //}
+
+
         
     }
 

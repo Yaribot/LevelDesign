@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
 
     private bool isSpawningPlayer;
     public bool once;
+    public bool activatePathAgent;
 
     [Header("Camera")]
     [SerializeField]
@@ -68,6 +69,8 @@ public class GameManager : MonoBehaviour
     [Header("Scriptable Objects")]
     public IntScriptable totalDeath;
     public IntScriptable totalCoin;
+
+    //private Vector3 agentStartPos;
     
     // Start is called before the first frame update
     void Start()
@@ -98,6 +101,12 @@ public class GameManager : MonoBehaviour
         //seeThroughMat = levelGroup.GetChild(0).GetComponent<Renderer>().material;
 
         GetCheckPointPos();
+
+        //agentStartPos = pathFirefly.transform.position;
+        activatePathAgent = false;
+        once = false;
+
+        
     }
 
     // Update is called once per frame
@@ -123,6 +132,15 @@ public class GameManager : MonoBehaviour
         //MusicFrequency = audioClip.frequency;
         //Debug.Log(MusicFrequency);
         //Debug.Log(moneyCount);
+        if (activatePathAgent)
+        {
+            pathFirefly.gameObject.SetActive(true);
+        }
+        else
+        {
+            pathFirefly.gameObject.SetActive(false);
+        }
+        DeactivateAgent();
     }
 
     private void PortalTeleportation()
@@ -215,14 +233,7 @@ public class GameManager : MonoBehaviour
                     playerPos.position = listCheckPoints[nbActive].transform.position;
                     playerPos.rotation = listCheckPoints[nbActive].transform.rotation;                  
                 }
-                //else
-                //{                    
-                //    if (listCheckPoints[i].isActive)
-                //    {
-                //        nbActive = ++;
-                //        //Debug.Log(nbActive);
-                //    }
-                //}
+
             }
             
         }
@@ -264,10 +275,23 @@ public class GameManager : MonoBehaviour
 
     public void AgentGoToGoal(NavMeshAgent agent, Transform goal)
     {
-
-        agent.transform.position = playerPos.position;
         agent.destination = goal.position;
+    }
 
-        //if(agent.transform.position == )
+    public void DeactivateAgent()
+    {
+        if (once)
+        {
+            pathFirefly.transform.position = playerPos.position;
+            once = false;
+        }
+        if (activatePathAgent)
+        { 
+            AgentGoToGoal(pathFirefly, agentGoal);
+            if (pathFirefly.transform.position == agentGoal.position)
+            {
+                activatePathAgent = false;
+            }
+        }
     }
 }

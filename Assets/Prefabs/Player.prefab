@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _trunSpeed: 400
+  _turnSpeed: 360
   jumpHeight: 5
   jumpSpeed: 10
   feetPos: {fileID: 314342396019220471}
@@ -124,6 +124,10 @@ MonoBehaviour:
     m_Bits: 8
   CheckWallsPos: {fileID: 314342395157493960}
   isEnable: 0
+  isPaused: 0
+  agentGoToGoal: 0
+  gm: {fileID: 0}
+  UiPauseMenu: {fileID: 0}
 --- !u!114 &314342394488875994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,7 +146,6 @@ MonoBehaviour:
     m_Bits: 8
   lerpDurationOpen: 1.5
   lerpDurationClose: 1
-  gm: {fileID: 0}
 --- !u!1 &314342394624921636
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,6 +419,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 464141968781854204, guid: 76ae24a1d063e5047a76b8ccbd9b6513, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b4adc33252d32d1408e6ba7d9861be0d, type: 2}
     - target: {fileID: 919132149155446097, guid: 76ae24a1d063e5047a76b8ccbd9b6513, type: 3}
       propertyPath: m_Name
       value: Ch03_nonPBR

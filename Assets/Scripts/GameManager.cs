@@ -106,7 +106,9 @@ public class GameManager : MonoBehaviour
         activatePathAgent = false;
         once = false;
 
-        
+        PortalGraphicSetUp();
+
+
     }
 
     // Update is called once per frame
@@ -157,6 +159,13 @@ public class GameManager : MonoBehaviour
                     playerPos.rotation = portalList[i + 1].transform.rotation;
                     portalList[i + 1].forward = false;
                     portalList[i + 1].used = true;
+                    portalList[i + 1].once = true;
+                    portalList[i + 1].isGraphicActivated = true;
+                    if(i + 2 <= portalList.Count - 1)
+                    {
+                        portalList[i + 2].once = true;
+                        portalList[i + 2].isGraphicActivated = true;
+                    }
                     
                 }
             }
@@ -231,7 +240,8 @@ public class GameManager : MonoBehaviour
                     particle.Play();
                     playerScript.isEnable = true;
                     playerPos.position = listCheckPoints[nbActive].transform.position;
-                    playerPos.rotation = listCheckPoints[nbActive].transform.rotation;                  
+                    playerPos.rotation = listCheckPoints[nbActive].transform.rotation;
+                    activatePathAgent = false;
                 }
 
             }
@@ -291,6 +301,24 @@ public class GameManager : MonoBehaviour
             if (pathFirefly.transform.position == agentGoal.position)
             {
                 activatePathAgent = false;
+            }
+        }
+    }
+
+    private void PortalGraphicSetUp()
+    {
+        for (int i = 0; i < portalList.Count; i++)
+        {
+            if (!portalList[i].isWinTeleport)
+            {
+                if(i == 0)
+                {
+                    portalList[i].isGraphicActivated = true;
+                }
+                else
+                {
+                    portalList[i].isGraphicActivated = false;
+                }
             }
         }
     }

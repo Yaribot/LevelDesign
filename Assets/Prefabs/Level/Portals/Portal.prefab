@@ -4881,6 +4881,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWinTeleport: 0
+  isGraphicActivated: 0
   activeTeleport: 0
   activeWinTeleport: 0
   teleportRadius: 1
@@ -4893,6 +4894,7 @@ MonoBehaviour:
   winTeleport: 0
   used: 0
   forward: 0
+  levelLoader: {fileID: 0}
 --- !u!1 &2847251193257604862
 GameObject:
   m_ObjectHideFlags: 0

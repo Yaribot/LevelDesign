@@ -5,6 +5,8 @@ using UnityEngine;
 public class Portal : MonoBehaviour
 {
     public bool isWinTeleport = false;
+    public bool isGraphicActivated = false;
+    public bool once;
 
     public bool activeTeleport = false, activeWinTeleport = false;
     [SerializeField]
@@ -21,6 +23,8 @@ public class Portal : MonoBehaviour
     [SerializeField]
     private LevelLoader levelLoader;
 
+    private ParticleSystem groundParticle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +34,11 @@ public class Portal : MonoBehaviour
         timeThresholdTeleport = 2f;
         used = false;
         forward = true;
+        once = true;
+        if (!isWinTeleport)
+        {
+            groundParticle = transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>();
+        }
     }
 
     // Update is called once per frame
@@ -38,11 +47,12 @@ public class Portal : MonoBehaviour
         if (!isWinTeleport)
         {
             NormalTeleport();
+            ActivateGraphic(isGraphicActivated);
         }
         else
         {
             WinTeleport();
-        }
+        }       
     }
 
     private void NormalTeleport()
@@ -86,5 +96,27 @@ public class Portal : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, teleportRadius);
+    }
+
+    private void ActivateGraphic(bool isGraphicActivated)
+    {
+        if (!isGraphicActivated)
+        {
+            if (once)
+            {
+                groundParticle.Pause();
+                once = false;
+            }
+        }
+        else
+        {
+            if (once)
+            {
+                //Debug.Log("Graphic activated !!!");
+                groundParticle.Play();
+                once = false;
+            }
+        }
+        //once = false;
     }
 }
